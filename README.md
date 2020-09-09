@@ -30,15 +30,9 @@ The aim of this project is to build a multi-tool ensemble for **classifying imag
 
 #### 1. Preprocessing
 
-
-
 #### 2. Clustering: Unsupervised ML 
 
-
-
 #### 3. Returning classification list
-
-
 
 #### 4. Getting feedback to improve the ML algorithm
 
@@ -52,8 +46,6 @@ The aim of this project is to build a multi-tool ensemble for **classifying imag
 
 #### 1. Storing the Data in a Database
 
-
-
 #### 2. Database Deployment
 
 
@@ -64,8 +56,6 @@ The aim of this project is to build a multi-tool ensemble for **classifying imag
 
 #### 1. User Interface
 
-
-
 #### 2. Interface Deployment
 
 
@@ -74,7 +64,7 @@ The aim of this project is to build a multi-tool ensemble for **classifying imag
 
 * Image Analysis & Classification
   * [Use Kmeans for image segmentation with OpenCV in Python](https://www.thepythoncode.com/article/kmeans-for-image-segmentation-opencv-python)
-  * []()
+  * [Github: beleidy/unsupervised-image-clustering](https://github.com/beleidy/unsupervised-image-clustering)
 * Data Manipulation & Storage
   * Morphological Transformations
 * User Interaction
