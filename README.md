@@ -1,6 +1,6 @@
 # Image Classification Using Unsupervised Machine Learning Methods
 
-
+#python #computervision #machinelearning
 
 ## Objectives
 
@@ -73,9 +73,9 @@ The aim of this project is to build a multi-tool ensemble for **labeling images 
 ## References and Ressources
 
 * Image Analysis & Classification
-  * 
+  * [Use Kmeans for image segmentation with OpenCV in Python](https://www.thepythoncode.com/article/kmeans-for-image-segmentation-opencv-python)
 * Data Manipulation & Storage
-  * 
+  * Morphological Transformations
 * User Interaction
   * 
 
