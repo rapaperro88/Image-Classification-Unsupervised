@@ -4,12 +4,12 @@
 
 ## Objectives
 
-The aim of this project is to build a multi-tool ensemble for **labeling images automatically**, using unsupervised ML algorithms. This may include the following features:
+The aim of this project is to build a multi-tool ensemble for **classifying images by clustering**, using unsupervised ML algorithms. This may include the following features:
 
 * Image Analysis & Classification (backend): 
   1. Preprocessing
-  2. Implementation of an unsupervised ML technique : identification of objects present in the image
-  3. Return a tagged image and a label file with the previously identified objects
+  2. Implementation of an unsupervised ML technique : image clustering
+  3. Return the images list and their assigned class
   4. Get feedback to improve the ML algorithm (**Kmeans, DBscan**)
 * Data Manipulation & Storage (backend):
   1. Storing the Data in a Database (**MongoDB**)
@@ -18,7 +18,7 @@ The aim of this project is to build a multi-tool ensemble for **labeling images 
   1. Interface (**Streamlit**) that:
      1. Loads images
      2. Runs the classification algorithm
-     3. Returns the results (tagged images and labels file)
+     3. Returns the results (images list + classes)
      4. Receives feedback to improve the algorithm
   2. Interface deployed (**Render**)
 
@@ -32,11 +32,11 @@ The aim of this project is to build a multi-tool ensemble for **labeling images 
 
 
 
-#### 2. Munsupervised ML identification of objects
+#### 2. Clustering: Unsupervised ML 
 
 
 
-#### 3. Returning a tagged image and a label file
+#### 3. Returning classification list
 
 
 
