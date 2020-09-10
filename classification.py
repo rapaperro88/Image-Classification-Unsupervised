@@ -9,6 +9,14 @@ import pandas as pd
 import numpy as np
 import time
 import os
+import matplotlib.pyplot as plt
+from PIL import Image
+import functools
+
+import keras
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture
 
 #################################################
 ############### Useful Functions ################
@@ -215,8 +223,6 @@ def group_and_plot(src_folder, clusters, size=(128,128), plot=True, grey=False):
 ################### Interface ###################
 #################################################
 
-
-
 #title
 st.title("Classify your personal images (cell phone, old albums, etc)")
 st.markdown("We propose an automatic classification")
@@ -225,8 +231,34 @@ folder = st.text_input('Enter a valid file path for folder containing images:')
 
 try:
     images = compile_images(folder)
+    st.success("Images Loaded")
+    # plt.savefig(path)
 
-    # with open(filename) as input:
-    #     st.text(input.read())
 except FileNotFoundError:
     st.error('File not found.')
+
+# SELECTION OF : MODEL / ALGORITHM / NUMBER OF CLUSTERS 
+# model
+model = st.radio("Choose a pretrained model", ('resnet50', 'vgg16', 'vgg19'))
+input_shape=(128,128,3)
+if model == 'resnet50':
+    model = keras.applications.resnet50.ResNet50(include_top=False, weights="imagenet", input_shape=input_shape)
+elif model == 'vgg16':
+    model = keras.applications.vgg16.VGG16(include_top=False, weights="imagenet", input_shape=input_shape)
+elif model == 'vgg19':
+    model = keras.applications.vgg19.VGG19(include_top=False, weights="imagenet", input_shape=input_shape)
+# algorithm
+algo = st.radio("Choose a clustering algorithm", ('KMeans', 'Gaussian Mixture'))
+# number of clusters
+nb_clusters = st.slider("How many categories do you think we can cluster your images", min_value=2, max_value=8, value=3, step=1)
+
+# CLASSIFICATION ROUTINE
+if st.button("Classify!"):
+    model_output = flatten_output(model, images)
+    model_pca = create_fit_PCA(model_output)
+    model_output_pca = model_pca.transform(model_output)
+    if algo == "KMeans":
+        Cluster_model_pca = create_train_kmeans(model_output_pca)
+    elif algo == "Gaussian Mixture":
+        Cluster_model_pca = create_train_gmm(model_output_pca)
+
