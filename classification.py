@@ -255,10 +255,14 @@ nb_clusters = st.slider("How many categories do you think we can cluster your im
 # CLASSIFICATION ROUTINE
 if st.button("Classify!"):
     model_output = flatten_output(model, images)
+    st.success("Predictions made, starting PCA analysis")
     model_pca = create_fit_PCA(model_output)
     model_output_pca = model_pca.transform(model_output)
+    st.success(f"PCA achieved, using {algo} for clustering...")
     if algo == "KMeans":
-        Cluster_model_pca = create_train_kmeans(model_output_pca)
+        cluster_model_pca = create_train_kmeans(model_output_pca)
     elif algo == "Gaussian Mixture":
-        Cluster_model_pca = create_train_gmm(model_output_pca)
+        cluster_model_pca = create_train_gmm(model_output_pca)
+
+
 
