@@ -60,6 +60,12 @@ The aim of this project is to build a multi-tool ensemble for **classifying imag
 
 
 
+## Installation
+
+
+
+
+
 ## References and Ressources
 
 * Image Analysis & Classification
