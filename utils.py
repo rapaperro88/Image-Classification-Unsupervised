@@ -1,3 +1,15 @@
+import os
+import numpy as np
+import functools
+import keras
+import time
+from PIL import Image
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture
+import matplotlib.pyplot as plt
+import base64
+
 def image_transpose_exif(im):
     """
     Apply Image.transpose to ensure 0th row of pixels is at the visual
@@ -161,7 +173,7 @@ def reference_labels (nb_clusters):
         dico[i] = []
     return dico
 
-def group_and_plot(src_folder, clusters, size=(128,128), plot=True, grey=False):
+def group_and_plot(src_folder, clusters, nb_clusters, size=(128,128), plot=True, grey=False):
     
     dico = reference_labels(nb_clusters)
     
@@ -171,13 +183,11 @@ def group_and_plot(src_folder, clusters, size=(128,128), plot=True, grey=False):
         dico[clu].append(filenames[i])
         
     if plot :
+
+        figs = []
         
         for clu in dico.keys():
-            
-            print("************************************************")
-            print(f"******************* group {clu} ********************")
-            print("************************************************")
-            
+
             n_col = 6
             n_row = (len(dico[clu]) // n_col) + 1
             plt.subplots_adjust(bottom=0, left=.01, right=.99, top=.90, hspace=.35)
@@ -188,9 +198,42 @@ def group_and_plot(src_folder, clusters, size=(128,128), plot=True, grey=False):
                 
                 img = load_and_preprocess_image(imgFile, size, grey)
                                 
-                plt.subplot(n_row, n_col, i + 1)
-                plt.imshow(img)
+                plt.subplot(n_row, n_col, i + 1, figure=fig)
+                plt.imshow(img, figure=fig)
 
-            # plt.show()
+            # fig = plt.show()
+            figs.append(fig)
                 
-    return dico, fig
+    return dico, figs
+
+def download_link(object_to_download, download_filename, download_link_text):
+    """
+    Generates a link to download the given object_to_download.
+
+    object_to_download (str, pd.DataFrame):  The object to be downloaded.
+    download_filename (str): filename and extension of file. e.g. mydata.csv, some_txt_output.txt
+    download_link_text (str): Text to display for download link.
+
+    Examples:
+    download_link(YOUR_DF, 'YOUR_DF.csv', 'Click here to download data!')
+    download_link(YOUR_STRING, 'YOUR_STRING.txt', 'Click here to download your text!')
+
+    """
+    if isinstance(object_to_download,pd.DataFrame):
+        object_to_download = object_to_download.to_csv(index=False)
+
+    # some strings <-> bytes conversions necessary here
+    b64 = base64.b64encode(object_to_download.encode()).decode()
+
+    return f'<a href="data:file/txt;base64,{b64}" download="{download_filename}">{download_link_text}</a>'
+
+
+# # Examples
+# df = pd.DataFrame({'x': list(range(10)), 'y': list(range(10))})
+# st.write(df)
+
+# if st.button('Download Dataframe as CSV'):
+#     tmp_download_link = download_link(df, 'YOUR_DF.csv', 'Click here to download your data!')
+#     st.markdown(tmp_download_link, unsafe_allow_html=True)
+
+# s = st.text_input('Enter text here')

@@ -22,7 +22,9 @@ The aim of this project is to build a multi-tool ensemble for **classifying imag
      4. Receives feedback to improve the algorithm
   2. Interface deployed (**Render**)
 
+## Methodology
 
+Pretrained models will be used in a forward pass on images (inferring) to generate feature maps. Thos features will be the input of our clustering algorithms.
 
 ## Image Analysis & Classification
 
